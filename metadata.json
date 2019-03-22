@@ -1,0 +1,10 @@
+{
+  "description": "Make the top bar transparent when free-floating",
+  "name": "Transparent Top Bar",
+  "shell-version": [
+    "3.32"
+  ],
+  "url": "https://github.com/DreaminginCodeZH/gnome-shell-extension-transparent-top-bar",
+  "uuid": "transparent-top-bar@zhanghai.me",
+  "version": 1
+}
