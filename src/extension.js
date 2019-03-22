@@ -109,16 +109,6 @@ var Extension = class Extension {
     }
 };
 
-let extension;
-
 function init() {
-    extension = new Extension();
-}
-
-function enable() {
-    extension.enable();
-}
-
-function disable() {
-    extension.disable();
+    return new Extension();
 }
