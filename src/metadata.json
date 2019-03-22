@@ -1,5 +1,5 @@
 {
-  "description": "A GNOME Shell extension that makes the top bar transparent when free-floating.\n\nThis is basically a copy of the feature implementation removed in GNOME Shell 3.32. I modified the code a bit to make it an extension. Enjoy!",
+  "description": "Make the top bar transparent when free-floating.\n\nThis is basically a copy of the feature implementation removed in GNOME Shell 3.32. I modified the code a bit to make it an extension. Enjoy!",
   "name": "Transparent Top Bar",
   "shell-version": [
     "3.32"
