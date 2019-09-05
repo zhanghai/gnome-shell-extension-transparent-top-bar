@@ -1,7 +1,7 @@
 .PHONY: build
 build: $(wildcard src/*)
 	mkdir -p build/
-	cd src/ && zip -r ../build/transparent-top-bar@zhanghai.me.zip .
+	zip -r ./build/transparent-top-bar@zhanghai.me.zip extension.js metadata.json stylesheet.css
 
 .PHONY: clean
 clean:
