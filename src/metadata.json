@@ -3,7 +3,8 @@
   "name": "Transparent Top Bar",
   "shell-version": [
     "3.32",
-    "3.34"
+    "3.34",
+    "3.36"
   ],
   "url": "https://github.com/zhanghai/gnome-shell-extension-transparent-top-bar",
   "uuid": "transparent-top-bar@zhanghai.me"
