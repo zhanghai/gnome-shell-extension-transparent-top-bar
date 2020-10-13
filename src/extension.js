@@ -1,10 +1,9 @@
-const Meta = imports.gi.Meta;
-const St = imports.gi.St;
+const { Meta, St } = imports.gi;
 
 const Main = imports.ui.main;
+const Config = imports.misc.config;
 
-var Extension = class Extension {
-
+class Extension {
     constructor() {
         this._actorSignalIds = null;
         this._windowSignalIds = null;
@@ -70,7 +69,6 @@ var Extension = class Extension {
     }
 
     _updateTransparent() {
-
         if (Main.panel.has_style_pseudo_class('overview') || !Main.sessionMode.hasWindows) {
             this._setTransparent(true);
             return;
