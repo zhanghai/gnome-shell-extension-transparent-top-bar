@@ -1,7 +1,6 @@
 const { Meta, St } = imports.gi;
 
 const Main = imports.ui.main;
-const Config = imports.misc.config;
 
 class Extension {
     constructor() {
