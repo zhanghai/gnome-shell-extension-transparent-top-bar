@@ -56,7 +56,7 @@ var Extension = class Extension {
 
     _onWindowActorAdded(container, metaWindowActor) {
         this._windowSignalIds.set(metaWindowActor, [
-            metaWindowActor.connect('allocation-changed', this._updateTransparent.bind(this)),
+            metaWindowActor.connect('notify::allocation', this._updateTransparent.bind(this)),
             metaWindowActor.connect('notify::visible', this._updateTransparent.bind(this))
         ]);
     }
