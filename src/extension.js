@@ -54,13 +54,19 @@ class Extension {
 
     _onWindowActorAdded(container, metaWindowActor) {
         this._windowSignalIds.set(metaWindowActor, [
+            // Try to work around MetaWindowActorX11 somehow deallocated without actor-removed.
+            metaWindowActor.connect('destroy', this._onWindowActorRemoved.bind(this, container)),
             metaWindowActor.connect('notify::allocation', this._updateTransparent.bind(this)),
             metaWindowActor.connect('notify::visible', this._updateTransparent.bind(this))
         ]);
     }
 
     _onWindowActorRemoved(container, metaWindowActor) {
-        for (const signalId of this._windowSignalIds.get(metaWindowActor)) {
+        const signalIds = this._windowSignalIds.get(metaWindowActor);
+        if (!signalIds) {
+            return;
+        }
+        for (const signalId of signalIds) {
             metaWindowActor.disconnect(signalId);
         }
         this._windowSignalIds.delete(metaWindowActor);
