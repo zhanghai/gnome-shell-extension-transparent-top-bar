@@ -1,14 +1,33 @@
-const { Meta, St } = imports.gi;
+const {Meta, St} = imports.gi;
 
 const Main = imports.ui.main;
+const Me = imports.misc.extensionUtils.getCurrentExtension();
+const Gio = imports.gi.Gio;
+
+function getSettings() {
+    let GioSSS = Gio.SettingsSchemaSource;
+    let schemaSource = GioSSS.new_from_directory(
+        Me.dir.get_child("schemas").get_path(),
+        GioSSS.get_default(),
+        false
+    );
+    let schemaObj = schemaSource.lookup(
+        'zhanghai.me.transparentbar', true);
+    if (!schemaObj) {
+        throw new Error('cannot find schemas');
+    }
+    return new Gio.Settings({settings_schema: schemaObj});
+}
 
 class Extension {
     constructor() {
         this._actorSignalIds = null;
         this._windowSignalIds = null;
+        this._settings = getSettings();
     }
 
     enable() {
+
         this._actorSignalIds = new Map();
         this._windowSignalIds = new Map();
 
@@ -48,8 +67,7 @@ class Extension {
         this._actorSignalIds = null;
         this._windowSignalIds = null;
 
-        Main.panel.remove_style_class_name('transparent-top-bar--solid');
-        Main.panel.remove_style_class_name('transparent-top-bar--transparent');
+        this._setTransparent(false);
     }
 
     _onWindowActorAdded(container, metaWindowActor) {
@@ -82,9 +100,9 @@ class Extension {
         const activeWorkspace = workspaceManager.get_active_workspace();
         const windows = activeWorkspace.list_windows().filter(metaWindow => {
             return metaWindow.is_on_primary_monitor()
-                    && metaWindow.showing_on_its_workspace()
-                    && !metaWindow.is_hidden()
-                    && metaWindow.get_window_type() !== Meta.WindowType.DESKTOP;
+                && metaWindow.showing_on_its_workspace()
+                && !metaWindow.is_hidden()
+                && metaWindow.get_window_type() !== Meta.WindowType.DESKTOP;
         });
 
         // Check if at least one window is near enough to the panel.
@@ -100,12 +118,19 @@ class Extension {
     }
 
     _setTransparent(transparent) {
+        const transparency = this._settings.get_int("transparency") / 100;
         if (transparent) {
             Main.panel.remove_style_class_name('transparent-top-bar--solid');
             Main.panel.add_style_class_name('transparent-top-bar--transparent');
+            Main.panel.set_style("background-color: rgba(0,0,0," + transparency + ")");
+            Main.panel._rightCorner.set_style("-panel-corner-background-color: rgba(0,0,0," + transparency + ")");
+            Main.panel._leftCorner.set_style("-panel-corner-background-color: rgba(0,0,0," + transparency + ")");
         } else {
             Main.panel.add_style_class_name('transparent-top-bar--solid');
             Main.panel.remove_style_class_name('transparent-top-bar--transparent');
+            Main.panel.set_style("background-color: rgba(0,0,0,1)");
+            Main.panel._rightCorner.set_style("-panel-corner-background-color: rgba(0,0,0,1)");
+            Main.panel._leftCorner.set_style("-panel-corner-background-color: rgba(0,0,0,1)");
         }
     }
 };

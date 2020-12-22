@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+    <schema id="zhanghai.me.transparentbar" path="/zhanghai/me/transparentbar/">
+        <key type="i" name="transparency">
+            <default>50</default>
+            <summary>Top bar transparency</summary>
+            <description>Top bar transparency</description>
+        </key>
+    </schema>
+</schemalist>
