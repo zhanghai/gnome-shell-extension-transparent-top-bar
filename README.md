@@ -21,7 +21,7 @@ dbus-run-session -- gnome-shell --nested --wayland
 
 Press ALT+F2 type r in the input then enter.
 
-# Compile schemas
+### Compile schemas
 ```
 cd ~/.local/share/gnome-shell/extensions/transparent-top-bar@zhanghai.me
 glib-compile-schemas schemas/
