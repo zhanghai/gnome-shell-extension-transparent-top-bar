@@ -13,13 +13,15 @@ This program is distributed under the terms of the GNU General Public License, v
 ## Development
 
 ### Wayland
+
+Start child shell instance with reloaded extensions
 ```
 dbus-run-session -- gnome-shell --nested --wayland
 ```
 
 ### Xorg
 
-Press ALT+F2 type r in the input then enter.
+Reload shell by pressing ALT+F2 type r in the input then enter.
 
 ### Compile schemas
 ```

@@ -2,7 +2,7 @@
 <schemalist>
     <schema id="zhanghai.me.transparentbar" path="/zhanghai/me/transparentbar/">
         <key type="i" name="transparency">
-            <default>50</default>
+            <default>35</default>
             <summary>Top bar transparency</summary>
             <description>Top bar transparency</description>
         </key>
