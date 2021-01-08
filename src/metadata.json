@@ -1,6 +1,6 @@
 {
   "description": "Fork of: https://github.com/zhanghai/gnome-shell-extension-transparent-top-bar\n\nBring back the transparent top bar when free-floating in GNOME Shell with adjustable transparency.",
-  "name": "Transparent Top Bar",
+  "name": "Transparent Top Bar (Adjustable transparency)",
   "shell-version": [
     "3.38"
   ],
