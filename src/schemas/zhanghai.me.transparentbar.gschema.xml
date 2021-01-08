@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-    <schema id="zhanghai.me.transparentbar" path="/zhanghai/me/transparentbar/">
+    <schema id="com.ftpix.transparentbar" path="/com/ftpix/transparentbar/">
         <key type="i" name="transparency">
             <default>35</default>
             <summary>Top bar transparency</summary>

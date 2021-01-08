@@ -20,7 +20,7 @@ function getSettings() {
         false
     );
     let schemaObj = schemaSource.lookup(
-        'zhanghai.me.transparentbar', true);
+        'com.ftpix.transparentbar', true);
     if (!schemaObj) {
         throw new Error('cannot find schemas');
     }
