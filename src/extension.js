@@ -3,6 +3,21 @@ const {Meta, St} = imports.gi;
 const Main = imports.ui.main;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Gio = imports.gi.Gio;
+const GLib = imports.gi.GLib;
+
+/**
+ * https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout
+ * https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/clearTimeout
+ */
+window.setTimeout = function(func, delay, ...args) {
+    return GLib.timeout_add(GLib.PRIORITY_DEFAULT, delay, () => {
+        func(...args);
+        return GLib.SOURCE_REMOVE;
+    });
+};
+
+window.clearTimeout = GLib.source_remove;
+
 
 function getSettings() {
     let GioSSS = Gio.SettingsSchemaSource;
@@ -24,13 +39,15 @@ class Extension {
         this._actorSignalIds = null;
         this._windowSignalIds = null;
         this._settings = getSettings();
+        this._currentTransparency = this._settings.get_int('transparency');
+        this.settingChangeDebounce = null;
     }
 
     enable() {
-
+        this._
         this._actorSignalIds = new Map();
         this._windowSignalIds = new Map();
-
+        this._settings.connect('changed', this.transparencyChanged.bind(this));
         this._actorSignalIds.set(Main.overview, [
             Main.overview.connect('showing', this._updateTransparent.bind(this)),
             Main.overview.connect('hiding', this._updateTransparent.bind(this))
@@ -54,6 +71,17 @@ class Extension {
         ]);
 
         this._updateTransparent();
+    }
+
+    transparencyChanged(settings, key) {
+        if (key === 'transparency') {
+            clearTimeout(this.settingChangeDebounce);
+            this.settingChangeDebounce = setTimeout(() => {
+                Main.panel.remove_style_class_name('transparent-top-bar--transparent-' + this._currentTransparency);
+                this._updateTransparent();
+                this._currentTransparency = this._settings.get_int('transparency');
+            }, 500);
+        }
     }
 
     disable() {
@@ -118,21 +146,18 @@ class Extension {
     }
 
     _setTransparent(transparent) {
-        const transparency = this._settings.get_int("transparency") / 100;
+        const transparency = this._settings.get_int("transparency");
         if (transparent) {
             Main.panel.remove_style_class_name('transparent-top-bar--solid');
             Main.panel.add_style_class_name('transparent-top-bar--transparent');
-            Main.panel.set_style("background-color: rgba(0,0,0," + transparency + ")");
-            Main.panel._rightCorner.set_style("-panel-corner-background-color: rgba(0,0,0," + transparency + ")");
-            Main.panel._leftCorner.set_style("-panel-corner-background-color: rgba(0,0,0," + transparency + ")");
+            Main.panel.add_style_class_name('transparent-top-bar--transparent-' + transparency);
         } else {
             Main.panel.add_style_class_name('transparent-top-bar--solid');
             Main.panel.remove_style_class_name('transparent-top-bar--transparent');
-            Main.panel.set_style("background-color: rgba(0,0,0,1)");
-            Main.panel._rightCorner.set_style("-panel-corner-background-color: rgba(0,0,0,1)");
-            Main.panel._leftCorner.set_style("-panel-corner-background-color: rgba(0,0,0,1)");
+            Main.panel.remove_style_class_name('transparent-top-bar--transparent-' + transparency);
         }
     }
+
 };
 
 function init() {

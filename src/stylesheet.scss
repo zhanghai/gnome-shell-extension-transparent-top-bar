@@ -1,36 +1,50 @@
 #panel.transparent-top-bar--solid {
-    transition-duration: 300ms;
+  transition-duration: 300ms;
 }
 
 #panel.transparent-top-bar--transparent {
-    transition-duration: 500ms;
+  transition-duration: 500ms;
 }
 
+@for $i from 0 through 100 {
+  $transparency: $i / 100;
+  @debug $transparency;
+  #panel.transparent-top-bar--transparent-#{$i} {
+    background-color: rgba(0, 0, 0, $transparency);
+  }
+
+  #panel.transparent-top-bar--transparent-#{$i} .panel-corner {
+    -panel-corner-background-color: rgba(0, 0, 0, $transparency);
+  }
+
+}
+
+
 #panel.transparent-top-bar--transparent .panel-button {
-    color: #eee;
-    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.9);
-    transition-duration: 100ms;
+  color: #eee;
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.9);
+  transition-duration: 100ms;
 }
 
 #panel.transparent-top-bar--transparent .system-status-icon,
 #panel.transparent-top-bar--transparent .app-menu-icon > StIcon,
 #panel.transparent-top-bar--transparent .popup-menu-arrow {
-    icon-shadow: 0px 1px 2px rgba(0, 0, 0, 0.9);
+  icon-shadow: 0px 1px 2px rgba(0, 0, 0, 0.9);
 }
 
 #panel.transparent-top-bar--transparent:hover {
-    text-shadow: 0px 1px 6px rgba(0, 0, 0, 1);
+  text-shadow: 0px 1px 6px rgba(0, 0, 0, 1);
 }
 
 #panel.transparent-top-bar--transparent:hover .system-status-icon,
 #panel.transparent-top-bar--transparent:hover .app-menu-icon > StIcon,
 #panel.transparent-top-bar--transparent:hover .popup-menu-arrow {
-    icon-shadow: 0px 1px 6px rgba(0, 0, 0, 1);
+  icon-shadow: 0px 1px 6px rgba(0, 0, 0, 1);
 }
 
 #panel.transparent-top-bar--transparent:active .system-status-icon,
 #panel.transparent-top-bar--transparent:overview .system-status-icon,
 #panel.transparent-top-bar--transparent:focus .system-status-icon,
 #panel.transparent-top-bar--transparent:checked .system-status-icon {
-    icon-shadow: black 0 2px 2px;
+  icon-shadow: black 0 2px 2px;
 }
