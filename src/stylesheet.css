@@ -1,23 +1,23 @@
 #panel.transparent-top-bar--solid {
-    transition-duration: 300ms;
+    transition-duration: 200ms;
 }
 
 #panel.transparent-top-bar--transparent {
-    background-color: rgba(0, 0, 0, 0.35);
-    transition-duration: 500ms;
+    background-color: rgba(0, 0, 0, 0);
+    transition-duration: 200ms;
 }
 #panel.transparent-top-bar--transparent .panel-corner {
     -panel-corner-background-color: rgba(0, 0, 0, 0.35);
 }
 #panel.transparent-top-bar--transparent .panel-button {
     color: #eee;
-    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.9);
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.9);
     transition-duration: 100ms;
 }
 #panel.transparent-top-bar--transparent .system-status-icon,
 #panel.transparent-top-bar--transparent .app-menu-icon > StIcon,
 #panel.transparent-top-bar--transparent .popup-menu-arrow {
-    icon-shadow: 0px 1px 2px rgba(0, 0, 0, 0.9);
+    icon-shadow: 0px 1px 5px rgba(0, 0, 0, 0.9);
 }
 #panel.transparent-top-bar--transparent:hover {
     text-shadow: 0px 1px 6px rgba(0, 0, 0, 1);
