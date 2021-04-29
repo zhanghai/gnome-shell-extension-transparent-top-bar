@@ -7,7 +7,7 @@
     transition-duration: 500ms;
 }
 #panel.transparent-top-bar--transparent .panel-corner {
-    -panel-corner-background-color: rgba(0, 0, 0, 0.35);
+    -panel-corner-background-color: rgba(0, 0, 0, 0);
 }
 #panel.transparent-top-bar--transparent .panel-button {
     color: #eee;
