@@ -6,8 +6,15 @@
     background-color: rgba(0, 0, 0, 0.35);
     transition-duration: 500ms;
 }
+#panel.transparent-top-bar--transparent:overview {
+    background-color: transparent;
+    transition-duration: 250ms;
+}
 #panel.transparent-top-bar--transparent .panel-corner {
-    -panel-corner-background-color: rgba(0, 0, 0, 0.35);
+    -panel-corner-opacity: 0.35;
+}
+#panel.transparent-top-bar--transparent:overview .panel-corner {
+    -panel-corner-opacity: 0;
 }
 #panel.transparent-top-bar--transparent .panel-button {
     color: #eee;
