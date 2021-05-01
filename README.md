@@ -16,7 +16,7 @@ This program is distributed under the terms of the GNU General Public License, v
 
 Start child shell instance with reloaded extensions
 ```
-dbus-run-session -- gnome-shell --nested --wayland
+MUTTER_DEBUG_DUMMY_MODE_SPECS=1920x1080 dbus-run-session -- gnome-shell --nested --wayland
 ```
 
 ### Xorg

@@ -73,7 +73,8 @@ if (shellVersion < 40) {
         GTypeName: 'PrefsWidget',
         Template: Me.dir.get_child('prefs.gtk4.ui').get_uri(),
         InternalChildren: [
-            'opacity'
+            'opacity',
+            'darkFullScreen'
         ]
     }, class PrefsWidget extends Gtk.Box {
 
@@ -81,11 +82,18 @@ if (shellVersion < 40) {
             super._init(params);
             this.settings = getSettings();
 
+            print('Dark full screen ? '+this.settings.get_boolean("dark-full-screen"));
             this._opacity.set_value(this.settings.get_int("transparency"));
+            this._darkFullScreen.set_active(this.settings.get_boolean("dark-full-screen"))
         }
 
         onValueChanged(scale) {
             this.settings.set_int("transparency", this._opacity.get_value());
+        }
+
+        onDarkFullScreenChanged(gtkSwitch){
+            log('active changed '+gtkSwitch.get_active());
+            this.settings.set_boolean("dark-full-screen", this._darkFullScreen.get_active());
         }
     });
 

@@ -36,5 +36,29 @@
                 <signal name="value-changed" handler="onValueChanged" swapped="no"/>
             </object>
         </child>
+        <child>
+            <object class="GtkBox">
+                <property name="can-focus">0</property>
+                <property name="margin-top">20</property>
+                <property name="margin-bottom">20</property>
+                <property name="margin-start">20</property>
+                <property name="margin-end">20</property>
+                <property name="orientation">horizontal</property>
+                <property name="baseline-position">top</property>
+                <child>
+                    <object class="GtkLabel">
+                        <property name="hexpand">True</property>
+                        <property name="can-focus">0</property>
+                        <property name="label" translatable="yes">Opaque top bar when a window touches it</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkSwitch" id="darkFullScreen">
+                        <property name="active">true</property>
+                        <signal name="state-set" handler="onDarkFullScreenChanged" swapped="no"/>
+                    </object>
+                </child>
+            </object>
+        </child>
     </template>
 </interface>

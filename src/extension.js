@@ -5,6 +5,10 @@ const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
 
+const Config = imports.misc.config;
+const [major] = Config.PACKAGE_VERSION.split('.');
+const shellVersion = Number.parseInt(major);
+
 /**
  * https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout
  * https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/clearTimeout
@@ -40,7 +44,9 @@ class Extension {
         this._windowSignalIds = null;
         this._settings = getSettings();
         this._currentTransparency = this._settings.get_int('transparency');
-        this.settingChangeDebounce = null;
+        this._darkFullScreen = shellVersion >= 40 ? this._settings.get_boolean('dark-full-screen') : true;
+        this.transparencyChangeDebounce = null;
+        this.darkFullScreenChangeDebounce = null;
     }
 
     enable() {
@@ -77,10 +83,22 @@ class Extension {
         if (key === 'transparency') {
             clearTimeout(this.settingChangeDebounce);
             this.settingChangeDebounce = setTimeout(() => {
+                const oldTransparency = this._currentTransparency;
+                this._currentTransparency = this._settings.get_int('transparency');
+                Main.panel.remove_style_class_name('transparent-top-bar--transparent-' + oldTransparency);
+                this._updateTransparent();
+            }, 250);
+            return;
+        }
+
+        if(key === 'dark-full-screen'){
+            this._darkFullScreen = shellVersion >= 40 ? this._settings.get_boolean('dark-full-screen') : true;
+            clearTimeout(this.darkFullScreenChangeDebounce);
+            this.darkFullScreenChangeDebounce = setTimeout(() => {
                 Main.panel.remove_style_class_name('transparent-top-bar--transparent-' + this._currentTransparency);
                 this._updateTransparent();
-                this._currentTransparency = this._settings.get_int('transparency');
-            }, 500);
+            }, 250);
+            return;
         }
     }
 
@@ -114,6 +132,11 @@ class Extension {
     }
 
     _updateTransparent() {
+        if(!this._darkFullScreen){
+            this._setTransparent(true);
+            return
+        }
+
         if (Main.panel.has_style_pseudo_class('overview') || !Main.sessionMode.hasWindows) {
             this._setTransparent(true);
             return;

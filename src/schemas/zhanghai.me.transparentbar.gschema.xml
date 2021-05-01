@@ -3,8 +3,15 @@
     <schema id="com.ftpix.transparentbar" path="/com/ftpix/transparentbar/">
         <key type="i" name="transparency">
             <default>35</default>
-            <summary>Top bar transparency</summary>
-            <description>Top bar transparency</description>
+            <summary>Top bar opacity</summary>
+            <description>Top bar opacity</description>
+        </key>
+        <key type="b" name="dark-full-screen">
+            <default>true</default>
+            <summary>Dark bar on full screen</summary>
+            <description>If true the bar transparency will be reverted to original state when a window is touching the
+                bar, false and the bar remains transparent at all time
+            </description>
         </key>
     </schema>
 </schemalist>
