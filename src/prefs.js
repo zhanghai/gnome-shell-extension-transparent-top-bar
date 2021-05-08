@@ -70,13 +70,13 @@ if (shellVersion < 40) {
         });
 } else { // gnome 40
     const PrefsWidget = GObject.registerClass({
-        GTypeName: 'PrefsWidget',
+        GTypeName: 'TransparentTopBarPrefsWidget',
         Template: Me.dir.get_child('prefs.gtk4.ui').get_uri(),
         InternalChildren: [
             'opacity',
             'darkFullScreen'
         ]
-    }, class PrefsWidget extends Gtk.Box {
+    }, class TransparentTopBarPrefsWidget extends Gtk.Box {
 
         _init(params = {}) {
             super._init(params);
@@ -92,7 +92,6 @@ if (shellVersion < 40) {
         }
 
         onDarkFullScreenChanged(gtkSwitch){
-            log('active changed '+gtkSwitch.get_active());
             this.settings.set_boolean("dark-full-screen", this._darkFullScreen.get_active());
         }
     });
