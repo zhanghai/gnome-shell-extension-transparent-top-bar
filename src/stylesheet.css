@@ -1,3 +1,7 @@
+#panel .panel-corner {
+    -panel-corner-border-width: 0px;
+}
+
 #panel.transparent-top-bar--solid {
     transition-duration: 300ms;
 }
