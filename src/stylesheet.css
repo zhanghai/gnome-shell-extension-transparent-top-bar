@@ -1,9 +1,8 @@
-#panel .panel-corner {
-    -panel-corner-border-width: 0px;
-}
-
 #panel.transparent-top-bar--solid {
     transition-duration: 300ms;
+}
+#panel.transparent-top-bar--solid .panel-corner {
+    -panel-corner-border-width: 0px;
 }
 
 #panel.transparent-top-bar--transparent {
@@ -15,6 +14,7 @@
     transition-duration: 250ms;
 }
 #panel.transparent-top-bar--transparent .panel-corner {
+    -panel-corner-border-width: 0px;
     -panel-corner-opacity: 0.35;
 }
 #panel.transparent-top-bar--transparent:overview .panel-corner {
