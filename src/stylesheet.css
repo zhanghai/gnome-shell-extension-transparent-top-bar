@@ -3,6 +3,7 @@
 }
 #panel.transparent-top-bar--solid .panel-corner {
     -panel-corner-border-width: 0px;
+    transition-duration: 300ms;
 }
 
 #panel.transparent-top-bar--transparent {
@@ -16,14 +17,15 @@
 #panel.transparent-top-bar--transparent .panel-corner {
     -panel-corner-border-width: 0px;
     -panel-corner-opacity: 0.35;
+    transition-duration: 500ms;
 }
 #panel.transparent-top-bar--transparent:overview .panel-corner {
     -panel-corner-opacity: 0;
+    transition-duration: 250ms;
 }
 #panel.transparent-top-bar--transparent .panel-button {
     color: #eee;
     text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.9);
-    transition-duration: 100ms;
 }
 #panel.transparent-top-bar--transparent .system-status-icon,
 #panel.transparent-top-bar--transparent .app-menu-icon > StIcon,
