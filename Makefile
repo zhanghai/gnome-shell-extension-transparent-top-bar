@@ -1,7 +1,7 @@
 .PHONY: build
 build: $(wildcard src/*)
 	mkdir -p build/
-	cd src/ && zip -r ../build/transparent-top-bar@zhanghai.me.zip .
+	gnome-extensions pack -fo build src
 
 .PHONY: clean
 clean:
