@@ -26,15 +26,15 @@ class Extension {
     constructor() {
         this._actorSignalIds = null;
         this._windowSignalIds = null;
-        this._settings = ExtensionUtils.getSettings('com.ftpix.transparentbar');
-        this._currentTransparency = this._settings.get_int('transparency');
-        this._darkFullScreen = shellVersion >= 40 ? this._settings.get_boolean('dark-full-screen') : true;
         this.transparencyChangeDebounce = null;
         this.darkFullScreenChangeDebounce = null;
     }
 
     enable() {
-        this._
+        this._settings = ExtensionUtils.getSettings('com.ftpix.transparentbar');
+        this._currentTransparency = this._settings.get_int('transparency');
+        this._darkFullScreen = shellVersion >= 40 ? this._settings.get_boolean('dark-full-screen') : true;
+
         this._actorSignalIds = new Map();
         this._windowSignalIds = new Map();
         this._settings.connect('changed', this.transparencyChanged.bind(this));
