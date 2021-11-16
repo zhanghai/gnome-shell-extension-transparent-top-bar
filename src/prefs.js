@@ -1,22 +1,7 @@
 const GObject = imports.gi.GObject;
 const Gtk = imports.gi.Gtk;
-const Gio = imports.gi.Gio;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-
-function getSettings() {
-    let GioSSS = Gio.SettingsSchemaSource;
-    let schemaSource = GioSSS.new_from_directory(
-        Me.dir.get_child("schemas").get_path(),
-        GioSSS.get_default(),
-        false
-    );
-    let schemaObj = schemaSource.lookup(
-        'com.ftpix.transparentbar', true);
-    if (!schemaObj) {
-        throw new Error('cannot find schemas');
-    }
-    return new Gio.Settings({settings_schema: schemaObj});
-}
+const ExtensionUtils = imports.misc.extensionUtils;
 
 const PrefsWidget = GObject.registerClass({
     GTypeName: 'TransparentTopBarPrefsWidget',
@@ -29,7 +14,7 @@ const PrefsWidget = GObject.registerClass({
 
     _init(params = {}) {
         super._init(params);
-        this.settings = getSettings();
+        this.settings = ExtensionUtils.getSettings('com.ftpix.transparentbar');
 
         this._opacity.set_value(this.settings.get_int("transparency"));
         this._darkFullScreen.set_active(this.settings.get_boolean("dark-full-screen"))
