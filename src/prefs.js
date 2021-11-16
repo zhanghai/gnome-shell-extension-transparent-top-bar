@@ -31,7 +31,6 @@ const PrefsWidget = GObject.registerClass({
         super._init(params);
         this.settings = getSettings();
 
-        print('Dark full screen ? ' + this.settings.get_boolean("dark-full-screen"));
         this._opacity.set_value(this.settings.get_int("transparency"));
         this._darkFullScreen.set_active(this.settings.get_boolean("dark-full-screen"))
     }
