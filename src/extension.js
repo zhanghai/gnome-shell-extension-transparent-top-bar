@@ -1,13 +1,13 @@
 const {Meta, St} = imports.gi;
 
 const Main = imports.ui.main;
-const Me = imports.misc.extensionUtils.getCurrentExtension();
-const Gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
 
 const Config = imports.misc.config;
 const [major] = Config.PACKAGE_VERSION.split('.');
 const shellVersion = Number.parseInt(major);
+
+const ExtensionUtils = imports.misc.extensionUtils;
 
 /**
  * https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout
@@ -22,27 +22,11 @@ window.setTimeout = function(func, delay, ...args) {
 
 window.clearTimeout = GLib.source_remove;
 
-
-function getSettings() {
-    let GioSSS = Gio.SettingsSchemaSource;
-    let schemaSource = GioSSS.new_from_directory(
-        Me.dir.get_child("schemas").get_path(),
-        GioSSS.get_default(),
-        false
-    );
-    let schemaObj = schemaSource.lookup(
-        'com.ftpix.transparentbar', true);
-    if (!schemaObj) {
-        throw new Error('cannot find schemas');
-    }
-    return new Gio.Settings({settings_schema: schemaObj});
-}
-
 class Extension {
     constructor() {
         this._actorSignalIds = null;
         this._windowSignalIds = null;
-        this._settings = getSettings();
+        this._settings = ExtensionUtils.getSettings('com.ftpix.transparentbar');
         this._currentTransparency = this._settings.get_int('transparency');
         this._darkFullScreen = shellVersion >= 40 ? this._settings.get_boolean('dark-full-screen') : true;
         this.transparencyChangeDebounce = null;
@@ -114,6 +98,7 @@ class Extension {
         this._windowSignalIds = null;
 
         this._setTransparent(false);
+        this._settings = null;
     }
 
     _onWindowActorAdded(container, metaWindowActor) {
