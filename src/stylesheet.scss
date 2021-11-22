@@ -16,6 +16,10 @@
     transition-duration: 250ms;
 }
 
+#panel .panel-corner {
+  -panel-corner-border-width: 0px;
+}
+
 @for $i from 0 through 100 {
     $opacity: $i / 100;
     @debug "Opacity: #{$opacity}";
