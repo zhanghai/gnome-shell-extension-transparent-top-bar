@@ -4,7 +4,8 @@
   "name": "Transparent Top Bar (Adjustable transparency)",
   "shell-version": [
     "40",
-    "41"
+    "41",
+    "42"
   ],
   "url": "https://github.com/lamarios/gnome-shell-extension-transparent-top-bar",
   "uuid": "transparent-top-bar@ftpix.com",
