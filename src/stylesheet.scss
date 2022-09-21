@@ -21,7 +21,7 @@
 }
 
 @for $i from 0 through 100 {
-    $opacity: $i / 100;
+    $opacity: calc($i / 100);
     @debug "Opacity: #{$opacity}";
     #panel.transparent-top-bar--transparent-#{$i} {
         background-color: rgba(0, 0, 0, $opacity);
