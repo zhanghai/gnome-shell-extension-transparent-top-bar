@@ -48,8 +48,7 @@ class Extension {
         this._actorSignalIds = null;
         this._windowSignalIds = null;
 
-        Main.panel.remove_style_class_name('transparent-top-bar--solid');
-        Main.panel.remove_style_class_name('transparent-top-bar--transparent');
+        Main.panel.remove_style_class_name('transparent-top-bar');
     }
 
     _onWindowActorAdded(container, metaWindowActor) {
@@ -101,11 +100,9 @@ class Extension {
 
     _setTransparent(transparent) {
         if (transparent) {
-            Main.panel.remove_style_class_name('transparent-top-bar--solid');
-            Main.panel.add_style_class_name('transparent-top-bar--transparent');
+            Main.panel.add_style_class_name('transparent-top-bar');
         } else {
-            Main.panel.add_style_class_name('transparent-top-bar--solid');
-            Main.panel.remove_style_class_name('transparent-top-bar--transparent');
+            Main.panel.remove_style_class_name('transparent-top-bar');
         }
     }
 };
