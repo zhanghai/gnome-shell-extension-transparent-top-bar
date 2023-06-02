@@ -1,5 +1,6 @@
 import Meta from 'gi://Meta';
 import St from 'gi://St';
+import GLib from 'gi://GLib';
 
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
@@ -10,6 +11,7 @@ export default class TransparentTopBarExtension extends Extension {
 
         this._actorSignalIds = null;
         this._windowSignalIds = null;
+        this._delayedTimeoutId = null;
     }
 
     enable() {
@@ -34,8 +36,9 @@ export default class TransparentTopBarExtension extends Extension {
             global.window_group.connect('actor-removed', this._onWindowActorRemoved.bind(this))
         ]);
 
+        //Use a delayed version of _updateTransparent to let the shell catch up
         this._actorSignalIds.set(global.window_manager, [
-            global.window_manager.connect('switch-workspace', this._updateTransparent.bind(this))
+            global.window_manager.connect('switch-workspace', this._updateTransparentDelayed.bind(this))
         ]);
 
         this._updateTransparent();
@@ -51,6 +54,11 @@ export default class TransparentTopBarExtension extends Extension {
         }
         this._actorSignalIds = null;
         this._windowSignalIds = null;
+
+        if (this._delayedTimeoutId != null) {
+            GLib.Source.remove(this._delayedTimeoutId);
+        }
+        this._delayedTimeoutId = null;
 
         Main.panel.remove_style_class_name('transparent-top-bar');
     }
@@ -68,6 +76,14 @@ export default class TransparentTopBarExtension extends Extension {
         }
         this._windowSignalIds.delete(metaWindowActor);
         this._updateTransparent();
+    }
+
+    _updateTransparentDelayed() {
+        this._delayedTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
+            this._updateTransparent();
+            this._delayedTimeoutId = null;
+            return GLib.SOURCE_REMOVE;
+        });
     }
 
     _updateTransparent() {
