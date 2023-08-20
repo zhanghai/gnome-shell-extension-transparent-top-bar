@@ -1,6 +1,7 @@
-const { Meta, St } = imports.gi;
+import Meta from 'gi://Meta';
+import St from 'gi://St';
 
-const Main = imports.ui.main;
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 class Extension {
     constructor() {
