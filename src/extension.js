@@ -3,7 +3,7 @@ import St from 'gi://St';
 
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-class Extension {
+export default class TransparentTopBarExtension {
     constructor() {
         this._actorSignalIds = null;
         this._windowSignalIds = null;
@@ -107,7 +107,3 @@ class Extension {
         }
     }
 };
-
-function init() {
-    return new Extension();
-}
