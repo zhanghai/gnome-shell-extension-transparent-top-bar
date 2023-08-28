@@ -1,9 +1,10 @@
 import Meta from 'gi://Meta';
 import St from 'gi://St';
 
+import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-export default class TransparentTopBarExtension {
+export default class TransparentTopBarExtension extends Extension {
     constructor() {
         this._actorSignalIds = null;
         this._windowSignalIds = null;
