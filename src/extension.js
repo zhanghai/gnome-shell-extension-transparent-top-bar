@@ -5,7 +5,8 @@ import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 export default class TransparentTopBarExtension extends Extension {
-    constructor() {
+    constructor(metadata) {
+    	super(metadata);
         this._actorSignalIds = null;
         this._windowSignalIds = null;
     }
