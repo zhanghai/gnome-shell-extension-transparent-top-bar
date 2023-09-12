@@ -34,10 +34,6 @@ export default class TransparentTopBarExtension extends Extension {
             global.window_group.connect('actor-removed', this._onWindowActorRemoved.bind(this))
         ]);
 
-        this._actorSignalIds.set(global.window_manager, [
-            global.window_manager.connect('switch-workspace', this._updateTransparent.bind(this))
-        ]);
-
         this._updateTransparent();
     }
 
