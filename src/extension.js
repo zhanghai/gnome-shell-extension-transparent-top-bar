@@ -1,13 +1,17 @@
-const {Meta, St} = imports.gi;
+import Meta from 'gi://Meta';
+import St from 'gi://St';
+const GLib = 'gi://GLib';
 
-const Main = imports.ui.main;
-const GLib = imports.gi.GLib;
+// const Config = imports.misc.config;
+// const ExtensionUtils = imports.misc.extensionUtils;
+import * as Config from 'resource:///org/gnome/shell/misc/config.js';
+// import * as ExtensionUtils from 'resource:///org/gnome/shell/misc/extensionUtils.js';
+import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-const Config = imports.misc.config;
 const [major] = Config.PACKAGE_VERSION.split('.');
 const shellVersion = Number.parseInt(major);
 
-const ExtensionUtils = imports.misc.extensionUtils;
 
 /**
  * https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout
@@ -22,8 +26,9 @@ window.setTimeout = function(func, delay, ...args) {
 
 window.clearTimeout = GLib.source_remove;
 
-class Extension {
-    constructor() {
+export default class TransparentTopBarWithCustomTransparencyExtension extends Extension{
+    constructor(metadata) {
+        super(metadata);
         this._actorSignalIds = null;
         this._windowSignalIds = null;
         this._delayedTimeoutId = null;
@@ -32,7 +37,7 @@ class Extension {
     }
 
     enable() {
-        this._settings = ExtensionUtils.getSettings('com.ftpix.transparentbar');
+        this._settings = this.getSettings('com.ftpix.transparentbar');
         this._currentTransparency = this._settings.get_int('transparency');
         this._darkFullScreen = shellVersion >= 40 ? this._settings.get_boolean('dark-full-screen') : true;
 
@@ -181,7 +186,3 @@ class Extension {
     }
 
 };
-
-function init() {
-    return new Extension();
-}
