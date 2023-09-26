@@ -9,8 +9,8 @@ export default class TransparentTopBarPrefsWidget extends ExtensionPreferences {
 
     fillPreferencesWindow(window) {
         window._settings = this.getSettings('com.ftpix.transparentbar');
-        window._opacity = window._settings.get_int(TRANSPARENCY);
-        window._darkFullScreen = window._settings.get_boolean(DARK_FULL_SCREEN);
+        const opacity = window._settings.get_int(TRANSPARENCY);
+        const darkFullScreen = window._settings.get_boolean(DARK_FULL_SCREEN);
 
         const page = new Adw.PreferencesPage();
 
@@ -27,7 +27,7 @@ export default class TransparentTopBarPrefsWidget extends ExtensionPreferences {
         scale.set_draw_value(true);
 
         // setting value last as it might not work if the scale is not set up properly
-        scale.set_value(window._opacity);
+        scale.set_value(opacity);
         scale.connect('value-changed', (scale) => {
             window._settings.set_int(TRANSPARENCY, scale.get_value());
         });
@@ -41,7 +41,7 @@ export default class TransparentTopBarPrefsWidget extends ExtensionPreferences {
         //row.set_homogeneous(true);
 
         const sw = new Gtk.Switch();
-        sw.set_active(window._darkFullScreen);
+        sw.set_active(darkFullScreen);
         sw.connect('state-set', (sw) => {
             window._settings.set_boolean(DARK_FULL_SCREEN, sw.get_active());
         });
