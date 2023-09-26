@@ -25,7 +25,7 @@ Reload shell by pressing ALT+F2 type r in the input then enter.
 
 ### Compile schemas
 ```
-cd ~/.local/share/gnome-shell/extensions/transparent-top-bar@zhanghai.me
+cd ~/.local/share/gnome-shell/extensions/transparent-top-bar@ftpix.com
 glib-compile-schemas schemas/
 ```
 
