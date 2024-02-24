@@ -5,8 +5,6 @@ import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Config from 'resource:///org/gnome/shell/misc/config.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-const ShellVersion = parseFloat(Config.PACKAGE_VERSION);
-
 export default class TransparentTopBarExtension extends Extension {
     constructor(metadata) {
         super(metadata);
@@ -32,17 +30,10 @@ export default class TransparentTopBarExtension extends Extension {
             this._onWindowActorAdded(metaWindowActor.get_parent(), metaWindowActor);
         }
 
-        if (ShellVersion >= 46) {
-            this._actorSignalIds.set(global.window_group, [
-                global.window_group.connect('child-added', this._onWindowActorAdded.bind(this)),
-                global.window_group.connect('child-removed', this._onWindowActorRemoved.bind(this))
-            ]);
-        } else {
-            this._actorSignalIds.set(global.window_group, [
-                global.window_group.connect('actor-added', this._onWindowActorAdded.bind(this)),
-                global.window_group.connect('actor-removed', this._onWindowActorRemoved.bind(this))
-            ]);
-        }
+        this._actorSignalIds.set(global.window_group, [
+            global.window_group.connect('child-added', this._onWindowActorAdded.bind(this)),
+            global.window_group.connect('child-removed', this._onWindowActorRemoved.bind(this))
+        ]);
 
         this._updateTransparent();
     }
