@@ -2,7 +2,8 @@
   "description": "Bring back the transparent top bar when free-floating in GNOME Shell 3.32.\n\nThis basically comes from the feature implementation removed in GNOME Shell 3.32, and I modified the code a bit to make it an extension. Enjoy!",
   "name": "Transparent Top Bar",
   "shell-version": [
-    "46"
+    "46",
+    "47"
   ],
   "url": "https://github.com/zhanghai/gnome-shell-extension-transparent-top-bar",
   "uuid": "transparent-top-bar@zhanghai.me"
