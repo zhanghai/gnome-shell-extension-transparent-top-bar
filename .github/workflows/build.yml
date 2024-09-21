@@ -21,9 +21,6 @@ jobs:
     name: Build
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    #env:
-    #  JAVA_VERSION: "11.0"
-    #  FLUTTER_VERSION: "2.5.3"
     steps:
       - uses: actions/checkout@v3
       - uses: cachix/install-nix-action@v22
