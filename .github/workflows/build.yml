@@ -33,5 +33,5 @@ jobs:
       - name: Archive build artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: apks
+          name: transparent-top-bar
           path: build/transparent-top-bar@com.ftpix.zip
