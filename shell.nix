@@ -8,9 +8,6 @@ pkgs.mkShell {
       git sass zip gnumake
   ];
 
-  # What to run when the shell starts
-  # clipiousNix.prepareShell is a helper function to sort things properly. It returns a string so it's possible to just concatenate stuff afterwards
-  # to run CI or DB migrations
   shellHook =  ''
 
   '';
