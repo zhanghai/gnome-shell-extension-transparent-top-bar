@@ -83,7 +83,8 @@ export default class TransparentTopBarExtension extends Extension {
             return metaWindow.is_on_primary_monitor()
                     && metaWindow.showing_on_its_workspace()
                     && !metaWindow.is_hidden()
-                    && metaWindow.get_window_type() !== Meta.WindowType.DESKTOP;
+                    && metaWindow.get_window_type() !== Meta.WindowType.DESKTOP
+                    && metaWindow.gtk_application_id !== 'com.rastersoft.ding';
         });
 
         // Check if at least one window is near enough to the panel.
